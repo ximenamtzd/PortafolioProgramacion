@@ -30,4 +30,4 @@ print("1- el cerebro humano, 2- memoria a corto plazo, 3- memoria a largo plazo,
 print("respuesta 9")
 
 print("primero verificar que parte del codigo esta causando problema, despues leer el mensaje de error, revisar el codigo, verificar la estructura del codigo, prueba por partes, y volver a hacer correr el codigo")
-print("Hola mundo")
+
