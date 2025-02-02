@@ -1,0 +1,14 @@
+#Calculadora basica
+
+def suma(a,b):
+    return a+b
+def resta (a,b):
+    return a-b
+def multiplicacion (a,b):
+    return a*b
+def divicion (a,b):
+    if b ==0:
+       return ("Error: Divicion por cero")
+    else:
+        return a/b
+    
