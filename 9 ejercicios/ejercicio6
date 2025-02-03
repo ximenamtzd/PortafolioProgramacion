@@ -1,0 +1,20 @@
+#Calcular el interes compuesto dado un capital, tasa y tiempo
+
+def calcular_interes_compuesto(capital_inicial, tasa, tiempo, n=1 ):
+
+    #formula de interes compuesto
+    monto_final = capital_inicial * (1 + tasa / n) ** (n * tiempo)
+    return monto_final
+
+#solicitar los valores al usuario
+capital_inicial = float(input("Introduce el capital inicial:"))
+tasa= float(input("Introduce la tasa de interes anual (en porcentaje):")) / 100 #Covieret porcentaje a decimal
+tiempo= float(input("Introduce el tiempo en anios:"))
+n= int(input("Introduce el numero de veces que se aplica el interes por anio (por defecto es 1):") or 1) 
+
+
+#Calcular el monto final 
+monto_final = calcular_interes_compuesto(capital_inicial, tasa, tiempo, n )
+
+#Mostrar el resultado
+print(f"El monto final despues de {tiempo} anios es: {monto_final: .2f}")
