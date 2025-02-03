@@ -1,0 +1,20 @@
+#Calcular el area y la circunferencia de un circulo
+
+import math
+
+def calcular_area(radio):
+    return math.pi * radio ** 2
+def calcular_circunferencia(radio):
+    return 2 * math.pi * radio
+
+
+#Solicitar al usuario el radio
+radio= float(input("Introduce el radio del circulo:"))
+
+#Calcular el area y circunferencia
+area= calcular_area(radio)
+circunferencia = calcular_circunferencia(radio)
+
+#Mostrar resultados
+print(f"El area del circulo es {area: .2f}")
+print(f"La circunferencia del circulo es: {circunferencia: .2f}")
