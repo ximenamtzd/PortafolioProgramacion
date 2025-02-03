@@ -1,10 +1,17 @@
 #"Calcular el factorial de un numero dado"
 
-import math
-from numbers import Number
-from token import NUMBER
+def factorial(num):
+  
+  if num == 0 or num == 1:
+     return 1
+  else: 
+    return  num*factorial(num-1) 
+  
+#solicitar un numero al usuario
+num= int(input("Ingresa un numero para calcular su factorial:"))
 
-
-math.factorial(NUMBER)
-
-
+#validar que el numero no sea negativo
+if num< 0 :
+  print('El factorial no esta definido para numeros negativos')
+else:
+  print (F"El factorial de {num} es {factorial(num)}")
