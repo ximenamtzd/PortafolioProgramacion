@@ -1,0 +1,21 @@
+#Deternimar si un numero es par, impar o multiplo de otro
+
+
+#Ejemplo de uso
+
+numero= int(input("Introduce un numero:"))
+divisor= int(input("Introduce el numero divisor:"))
+
+def verificar_numero(numero,divisor):
+
+
+ def verificar_numero(numero,divisor):
+    if numero % 2 == 0:
+      print(F"{numero}es par.")
+    else: 
+       print(F"{numero} es impar.")
+
+if numero % divisor == 0:
+    print(F"{numero}es multiplo de {divisor}.")
+else: 
+    print(F"{numero} es multiplo de {divisor}.")
