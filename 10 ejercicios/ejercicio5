@@ -1,0 +1,18 @@
+#Verificar si un numero es primo
+
+def es_primo(numero):
+    if numero <=1:
+        return False
+    for i in range(2, int(numero ** 0.5)+ 1):
+        if numero % i == 0:
+            return False
+        return True
+    
+
+#ejemplo de uso:
+numero= int(input("Introduce un numero para verificar si es primo:"))
+if es_primo(numero):
+   print(F"{numero}es un numero primo.")
+else:
+    print(F"{numero} no es un numero primo.")
+    
