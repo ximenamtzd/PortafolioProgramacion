@@ -1,0 +1,26 @@
+#Leer, escribir y modificar un archivo de texto
+
+#abrir el archivo en modo lectura
+with open("archivo.txt","r")as file:
+  contenido= file.read() #leer todo el contenido del archivo
+  print(contenido) #imprimir el contenido en la consola
+
+
+#abrir el archivo en modo escritura (sobrescribe el archivo si existe)
+with open("archivo.txt", "w") as file:
+  file.write("Este es un archivo nuevo./n")  
+  file.write("Escribiendo un archivo de texto con Pythin./n")
+
+
+#leer el archivo y modificar su contenido
+with open("archivo.txt","r") as file:
+  contenido = file.readlines() #leer todas las lineas del archivo 
+
+#Modificar el contenido
+contenido.append("Nueva linea añadida al final./n")
+
+#Escribir el contenido modificado de vuelta al archivo
+with open("archivo.txt","w") as file:
+  file.writelines(contenido) #escribir todas las lineas modificadas al archivo
+
+  
