@@ -1,2 +1,123 @@
 #Implementar distintos metodos de ordenamiento
 
+#Checar
+
+# Métodos de ordenamiento
+
+# Burbuja 
+def burbuja(arr):
+    n= len(arr)
+    for i in range (0, n - 1,):
+        for j in range (0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr 
+
+#Insercion
+def insercion(arr):
+    for i in range (1, len (arr)):
+        clave = arr[i]
+        j=i-1
+        while j >= 0 and clave < arr [j]:
+            arr[j+1]= arr[j]
+            j -= 1
+            arr[j + 1] = clave
+    return arr 
+
+#Seleccion
+def seleccion(arr):
+    for i in range ( len(arr)) :
+        min_idx = i
+        for j in range( i+1, len(arr)):
+            if arr[j]< arr[min_idx]:    
+                min_idx=j
+        arr[i], arr[min_idx]= arr[min_idx], arr[i]
+    return arr  
+
+#Quick sort
+def quicksort(arr):
+    if len (arr)<=1 :
+        return arr
+    pivot = arr[len(arr)//2]
+    izquierda = [x for x in arr if x < pivot]
+    medio = [x for x in arr if x == pivot]        
+    derecha = [x for x in arr if x> pivot]
+    return quicksort(izquierda) + medio + quicksort(derecha)
+
+#Merge sort
+def mergesort(arr):
+    if len(arr)>1:
+        med = len(arr) //2
+        izq= arr[:med]
+        der= arr[med:]
+
+        mergesort(izq)
+        mergesort(der)
+
+        i= j= k = 0
+
+        while i <len(izq) and i<len(der):
+            if izq[i]< der[j]:
+                arr[k] = izq[i]
+                i+=1
+            else:
+                arr[k]= der[j] 
+                j+=1
+            k+=1
+
+        while i< len(izq):
+            arr[k]=izq[i]
+            i+=1
+            k+=1
+        while j<len(der):
+            arr[k]=der[j]
+            j+=1
+            k+=1 
+    return arr
+
+#Funcion para elegir el metodo de ordenamiento
+def menu():
+    print("\nElige el metodo de ordenamiento:")
+    print("1.Burbuja")
+    print("2.Insercion")
+    print("3.Seleccion")
+    print("4.Quick sort") 
+    print("5.Merge sort") 
+    print("6.Salir")
+
+def obtener_arreglo():
+    arr = input("Ingresa una lista de numeros separados por comas (ejem. 5, 6, 3, 24):")
+    return [int(x.strip()) for x in (arr.split(","))]
+def main():
+    while True:
+        menu()
+        opcion = input("Selecciona una opcion(1-6):")
+
+        if opcion == "6":
+            print("Hasta luego")
+            break
+
+        arr = obtener_arreglo()
+
+        if opcion == "1":
+            print("Metodo de ordenamiento: Burbuja")
+            print("Arreglo ordendo:", burbuja (arr))
+        elif opcion =="2":
+            print("Metodo de ordenamiento:Insercion")
+            print("Arreglo de ordenado:", insercion(arr))
+        elif opcion =="3":
+            print("Metodo de ordenamiento:Seleccion")
+            print("Arreglo de ordenado:", seleccion(arr))
+        elif opcion =="4":
+            print("Metodo de ordenamiento:Quick sort")
+            print("Arreglo de ordenado:", quicksort(arr)) 
+        elif opcion =="5":
+            print("Metodo de ordenamiento:Merge sort")
+            print("Arreglo de ordenado:", mergesort(arr))
+        else:
+            print("Opcion no valida. Por favor, selecciona una opcion entre 1 y 6") 
+
+                            
+#ejecutar el programa
+if  __name__ =="__main__":
+      main()
