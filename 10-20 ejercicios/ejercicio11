@@ -1,0 +1,19 @@
+#Verificar  si una cadena es un palindromo
+
+#Convertimos la cadena a minuscula y eliminamos los espacios
+
+ 
+def es_palindromo(cadena):
+
+  cadena = cadena.replace (" ","").lower()
+
+#comparamos la cadena con su reverso
+  return cadena == cadena[::-1]
+
+
+#Ejemplo de uso
+cadena = input("Ingresa una cadena: ")
+if es_palindromo(cadena):
+    print("La cadena es un palindromo.")
+else:
+    print("La cadena no es palindromo.")

@@ -1,0 +1,15 @@
+#Encontrar el mayor entre tres numeros dados
+
+def mayor_de_tres(num1, num2, num3):
+
+    #Compara los tres numeros y devuelve el mayor
+    return max(num1, num2, num3)
+
+#Ejemplo de uso
+numero1 = float(input("Ingresa el primer numero:"))
+numero2 = float(input("Ingresa el segundo numero:"))
+numero3 = float(input("Ingresa el trecer numero:"))
+
+
+mayor = mayor_de_tres(numero1, numero2, numero3)
+print(f"El numero mayor es {mayor}")
