@@ -1,2 +1,71 @@
 #Implementar busqueda binaria y lineal
 
+#Busqueda lineal
+def busqueda_lineal(arr, objetivo):
+    for i in range(len(arr)):
+        if arr[i] == objetivo:
+            return i #Retorna el indice del elemento enconrado
+        return -1 #REtorna -1 si el elemento no esta en la lista
+    
+#Busqueda Binaria
+def busqueda_binaria(arr, objetivo):
+    inicio =0
+    fin = len(arr) -1
+
+    while inicio <= fin:
+        medio = (inicio + fin)//2
+        if arr[medio]== objetivo:
+            return medio #Retorna el indice del elemento encontado
+        elif arr[medio]< objetivo:
+            inicio = medio +1
+        else:
+            fin = medio -1
+    return -1 #retorna -1 si el elemento no esta en la lista
+
+#Funcion para elegir el metodo de buqueda
+def menu():
+    print("\nElige el metodo de busqueda:")
+    print("1. Busqueda Lineal")
+    print("2. Busqueda Binaria")
+    print("3. Salir")
+
+
+#funcion para obtener un arreglo de numeros
+def obtener_arreglo():
+    arr = input("Ingresa una lista de numeros separados por comas (ejem. 11, 2, 7, 4):")
+    return [int(x.strip())for x in arr.split(",")]
+
+#Funcion principal
+def main():
+    while True:
+        menu()
+        opcion = input("Selecciona una opcion (1-3):")
+        if opcion == "3":
+            print("Saliendo del programa")
+            break
+        arr= obtener_arreglo()
+        objetivo = int(input("Ingresa el numero que deseas buscar:"))
+        if opcion =="1":
+            #Busqueda lineal
+            print("Metodo de busqueda: Lineal")
+            resultado = busqueda_lineal(arr, objetivo)
+            if resultado != -1:
+                print(f"El numero {objetivo} se encuentra en el indice {resultado}")
+            else:
+               print(f"El numero {objetivo} no se encunetra en la lista")
+        
+        elif opcion == "2":
+            #Busqueda binaria (el arreglo debe estar ordenado) 
+            arr.sort() #Aseguramos que el arreglo este ordenado
+            print("Metodo de busqueda: Binaria")
+            resultado = busqueda_binaria(arr, objetivo)
+            if resultado != -1:
+                print(f"El numero {objetivo} se encuentra en el indice {resultado}")
+            else:
+                print(f"El numero {objetivo} no se encuentra en la lista")
+        else:
+            print("Opcion no valida. Por favor, selecciona una opcion entre 1 y 3")
+
+#Ejecutar el programa
+if __name__ == "__main__":
+    main()                                  
