@@ -1,2 +1,179 @@
 #Implementar estructuras de datos basicas: pila, cola y lista enlazada
 
+class Pila:
+    def __init__(self):
+        self.items = []
+
+    def esta_vacia(self):
+        return len(self.items) == 0
+
+    def apilar(self, item):
+        self.items.append(item)
+
+    def desapilar(self):
+        if not self.esta_vacia():
+            return self.items.pop()
+        else:
+            print("Pila vacía")
+
+    def ver_pila(self):
+        print("Pila actual:", self.items)
+
+
+class Cola:
+    def __init__(self):
+        self.items = []
+
+    def esta_vacia(self):
+        return len(self.items) == 0
+
+    def encolar(self, item):
+        self.items.append(item)
+
+    def desencolar(self):
+        if not self.esta_vacia():
+            return self.items.pop(0)
+        else:
+            print("Cola vacía")
+
+    def ver_cola(self):
+        print("Cola actual:", self.items)
+
+
+class Nodo:
+    def __init__(self, data):
+        self.data = data
+        self.siguiente = None
+
+
+class ListaEnlazada:
+    def __init__(self):
+        self.cabeza = None
+
+    def esta_vacia(self):
+        return self.cabeza is None
+
+    def insertar_inicio(self, data):
+        nuevo_nodo = Nodo(data)
+        nuevo_nodo.siguiente = self.cabeza
+        self.cabeza = nuevo_nodo
+
+    def insertar_final(self, data):
+        nuevo_nodo = Nodo(data)
+        if self.esta_vacia():
+            self.cabeza = nuevo_nodo
+        else:
+            actual = self.cabeza
+            while actual.siguiente:
+                actual = actual.siguiente
+            actual.siguiente = nuevo_nodo
+
+    def eliminar_inicio(self):
+        if not self.esta_vacia():
+            self.cabeza = self.cabeza.siguiente
+        else:
+            print("Lista vacía")
+
+    def eliminar_final(self):
+        if not self.esta_vacia():
+            actual = self.cabeza
+            if actual.siguiente is None:
+                self.cabeza = None
+            else:
+                while actual.siguiente and actual.siguiente.siguiente:
+                    actual = actual.siguiente
+                actual.siguiente = None
+        else:
+            print("Lista vacía")
+
+    def mostrar_lista(self):
+        actual = self.cabeza
+        if actual is None:
+            print("Lista vacía")
+        else:
+            while actual:
+                print(actual.data, end=" -> ")
+                actual = actual.siguiente
+            print("None")
+
+
+def menu():
+    pila = Pila()
+    cola = Cola()
+    lista_enlazada = ListaEnlazada()
+
+    while True:
+        print("\nSelecciona una estructura de datos:")
+        print("1. Pila")
+        print("2. Cola")
+        print("3. Lista Enlazada")
+        print("4. Salir")
+        opcion = int(input("Ingresa tu opción (1-4): "))
+
+        if opcion == 1:
+            print("\nOperaciones con la Pila")
+            print("1. Apilar")
+            print("2. Desapilar")
+            print("3. Ver Pila")
+            op_pila = int(input("Elige la operación (1-3): "))
+            
+            if op_pila == 1:
+                valor = input("Ingresa el valor a apilar: ")
+                pila.apilar(valor)
+            elif op_pila == 2:
+                pila.desapilar()
+            elif op_pila == 3:
+                pila.ver_pila()
+            else:
+                print("Opción no válida")
+
+        elif opcion == 2:
+            print("\nOperaciones con la Cola")
+            print("1. Encolar")
+            print("2. Desencolar")
+            print("3. Ver Cola")
+            op_cola = int(input("Elige la operación (1-3): "))
+            
+            if op_cola == 1:
+                valor = input("Ingresa el valor a encolar: ")
+                cola.encolar(valor)
+            elif op_cola == 2:
+                cola.desencolar()
+            elif op_cola == 3:
+                cola.ver_cola()
+            else:
+                print("Opción no válida")
+
+        elif opcion == 3:
+            print("\nOperaciones con la Lista Enlazada")
+            print("1. Insertar al inicio")
+            print("2. Insertar al final")
+            print("3. Eliminar al inicio")
+            print("4. Eliminar al final")
+            print("5. Ver Lista")
+            op_lista = int(input("Elige la operación (1-5): "))
+
+            if op_lista == 1:
+                valor = input("Ingresa el valor a insertar al inicio: ")
+                lista_enlazada.insertar_inicio(valor)
+            elif op_lista == 2:
+                valor = input("Ingresa el valor a insertar al final: ")
+                lista_enlazada.insertar_final(valor)
+            elif op_lista == 3:
+                lista_enlazada.eliminar_inicio()
+            elif op_lista == 4:
+                lista_enlazada.eliminar_final()
+            elif op_lista == 5:
+                lista_enlazada.mostrar_lista()
+            else:
+                print("Opción no válida")
+
+        elif opcion == 4:
+            print("Saliendo del programa...")
+            break
+
+        else:
+            print("Opción no válida")
+
+# Llamar al menú
+menu()

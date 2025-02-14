@@ -1,2 +1,39 @@
 #Leer, escribir y modificar un archivo de texto
 
+#Abrir un archivo en modo lectura
+
+path = "C:/Users/ximem/OneDirve/Desktop/"
+name = "miarchivo"
+ext= "txt"
+
+with open(path+name+ "." +ext, "r", encoding="uft8") as miarchivo:
+    contenido = miarchivo.read() #Lee todo el contenido del archivo 
+    print(contenido) #Imprime el contenido del archivo
+
+#Escribir en el archivo
+
+#Abrir un archivo en modo escritura (si no existe, lo crea)
+with open("miarchivo.txt", "w") as miarchivo:
+    miarchivo.write("Este es un nuevo contenido.\n") #escribe una linea en el archivo
+
+
+#Modificar archivo
+
+#Abrir un archivo en modo appen (para añadir contenido al final)
+with open("miarchivo.txt", "a") as miarchivo:
+    miarchivo.write("Este es contenido adicional.\n") #añadira una nueva linea
+
+#Modificar contenido (reemplazar o actualizar)
+
+#Abrir el achivo en modo lectura para leer su contenido
+with open("miarchivo.txt", "r") as miarchivo:
+    contenido= miarchivo.readlines() #Lee todas las lineas en una lista
+
+#Modificar el contenido        
+for i, linea in enumerate(contenido):
+    if "palabra_a_reemplazar" in linea:
+        contenido[i] = linea. replace("palabra_a_reemplazar", "nuevo_texto")
+
+#Volver a escribir el archivo con las modificaciones 
+with open("miarchivo.txt", "w") as miarchivo:
+    miarchivo.writelines(contenido) #Escribe las lineas modifcadas

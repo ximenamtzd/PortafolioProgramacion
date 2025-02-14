@@ -1,0 +1,40 @@
+lista1 = []
+
+print(lista1)
+lista1.append(5)
+print(lista1)
+lista1.append(50)
+print(lista1)
+
+
+
+lista1.insert(0, 20)
+print(lista1)
+lista1.append(5)
+print(lista1)
+lista1.append(50)
+print(lista1)
+
+#Sacar elemetos
+ultimo = lista1.pop() #poner el numero de posicion del numero que quieras sacar
+print (ultimo, lista1)
+
+
+lista2 = []
+lista2.append(5)
+lista2.append (25)
+lista2.insert(0,50)
+
+print(lista2)
+
+for elemento in lista2:
+    print(elemento) 
+
+for i in reversed(range (len(lista2))):
+    print(lista2[1])
+
+
+
+
+
+

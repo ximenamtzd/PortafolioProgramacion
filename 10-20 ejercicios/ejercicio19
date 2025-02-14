@@ -1,2 +1,12 @@
 #Generar numeros aleatorios con distintas distribuciones
 
+
+import random
+mi_lista = []
+Fin = 30
+for i in range (1, Fin+1):
+    mi_lista.append(random.randint(0,100))
+    unicos = list(dict.fromkeys(mi_lista))
+print("Con duplicados", mi_lista)
+print()
+print("Unicos", unicos)    
