@@ -1,6 +1,8 @@
 #Generar y analizar histogramas de datos
 
-
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
 
 def generar_datos(n, media, desviacion_estandar):
     # Genera una muestra de datos aleatorios con distribución normal
@@ -48,5 +50,5 @@ def main():
     # Graficar histograma
     graficar_histograma(datos, bins=20)
 
-if _name_ == "__main__":
+if __name__ == "__main__":
     main()
