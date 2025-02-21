@@ -1,1 +1,57 @@
 #Calcular la suma de una serie numerica
+
+def suma_serie_aritmetica(primer_termino, diferencia, n):
+    # Fórmula para la suma de una serie aritmética: S = n/2 * (2a + (n-1)d)
+    return n / 2 * (2 * primer_termino + (n - 1) * diferencia)
+
+def suma_serie_geometrica(primer_termino, razon, n):
+    # Fórmula para la suma de una serie geométrica: S = a * (1 - r^n) / (1 - r) si r != 1
+    if razon == 1:
+        return primer_termino * n
+    else:
+        return primer_termino * (1 - razon**n) / (1 - razon)
+
+def suma_numeros_naturales(n):
+    # Suma de los primeros n números naturales: S = n * (n + 1) / 2
+    return n * (n + 1) // 2
+
+def mostrar_menu():
+    print("\nSelecciona el tipo de serie numérica:")
+    print("1. Serie aritmética")
+    print("2. Serie geométrica")
+    print("3. Serie de números naturales")
+    print("0. Salir")
+
+def main():
+    while True:
+        mostrar_menu()
+        opcion = input("Ingresa tu opción: ")
+
+        if opcion == "1":
+            primer_termino = float(input("Ingresa el primer término de la serie: "))
+            diferencia = float(input("Ingresa la diferencia común: "))
+            n = int(input("Ingresa el número de términos: "))
+            resultado = suma_serie_aritmetica(primer_termino, diferencia, n)
+            print(f"La suma de la serie aritmética es: {resultado:.2f}")
+
+        elif opcion == "2":
+            primer_termino = float(input("Ingresa el primer término de la serie: "))
+            razon = float(input("Ingresa la razón común: "))
+            n = int(input("Ingresa el número de términos: "))
+            resultado = suma_serie_geometrica(primer_termino, razon, n)
+            print(f"La suma de la serie geométrica es: {resultado:.2f}")
+
+        elif opcion == "3":
+            n = int(input("Ingresa el número de términos naturales: "))
+            resultado = suma_numeros_naturales(n)
+            print(f"La suma de los primeros {n} números naturales es: {resultado}")
+
+        elif opcion == "0":
+            print("Saliendo del programa")
+            break
+
+        else:
+            print("Opción no válida. Intenta nuevamente.")
+
+if __name__ == "__main__":
+    main()

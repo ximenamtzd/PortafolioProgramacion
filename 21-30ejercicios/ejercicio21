@@ -1,1 +1,73 @@
 #Calcular el area y el volumen de distintas figuras geometricas
+
+import math
+
+def area_circulo(radio):
+    return math.pi * radio**2
+
+def volumen_esfera(radio):
+    return (4/3) * math.pi * radio**3
+
+def area_rectangulo(base, altura):
+    return base * altura
+
+def volumen_cubo(lado):
+    return lado**3
+
+def area_triangulo(base, altura):
+    return (base * altura) / 2
+
+def volumen_cilindro(radio, altura):
+    return math.pi * radio**2 * altura
+
+def mostrar_menu():
+    print("Selecciona la figura geométrica:")
+    print("1. Círculo")
+    print("2. Esfera")
+    print("3. Rectángulo")
+    print("4. Cubo")
+    print("5. Triángulo")
+    print("6. Cilindro")
+    print("0. Salir")
+
+def main():
+    while True:
+        mostrar_menu()
+        opcion = int(input("Ingresa la opción deseada: "))
+        
+        if opcion == 1:
+            radio = float(input("Ingresa el radio del círculo: "))
+            print(f"Área del círculo: {area_circulo(radio):.2f}")
+        
+        elif opcion == 2:
+            radio = float(input("Ingresa el radio de la esfera: "))
+            print(f"Volumen de la esfera: {volumen_esfera(radio):.2f}")
+        
+        elif opcion == 3:
+            base = float(input("Ingresa la base del rectángulo: "))
+            altura = float(input("Ingresa la altura del rectángulo: "))
+            print(f"Área del rectángulo: {area_rectangulo(base, altura):.2f}")
+        
+        elif opcion == 4:
+            lado = float(input("Ingresa el lado del cubo: "))
+            print(f"Volumen del cubo: {volumen_cubo(lado):.2f}")
+        
+        elif opcion == 5:
+            base = float(input("Ingresa la base del triángulo: "))
+            altura = float(input("Ingresa la altura del triángulo: "))
+            print(f"Área del triángulo: {area_triangulo(base, altura):.2f}")
+        
+        elif opcion == 6:
+            radio = float(input("Ingresa el radio del cilindro: "))
+            altura = float(input("Ingresa la altura del cilindro: "))
+            print(f"Volumen del cilindro: {volumen_cilindro(radio, altura):.2f}")
+        
+        elif opcion == 0:
+            print("Estas saliendo del programa")
+            break
+        
+        else:
+            print("Opción no válida. Intenta nuevamente.")
+
+if __name__ == "__main__":
+    main()

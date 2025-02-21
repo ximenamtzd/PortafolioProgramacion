@@ -1,1 +1,117 @@
 #Implementar y operar con matrices
+
+import numpy as np
+
+def ingresar_matriz(filas, columnas):
+    matriz = []
+    print(f"Ingrese los elementos de la matriz {filas}x{columnas}:")
+    for i in range(filas):
+        fila = []
+        for j in range(columnas):
+            fila.append(int(input(f"Elemento ({i+1},{j+1}): ")))
+        matriz.append(fila)
+    return np.array(matriz)
+
+def imprimir_matriz(matriz):
+    print("\nMatriz:")
+    print(matriz)
+
+def suma_matrices(matriz1, matriz2):
+    if matriz1.shape == matriz2.shape:
+        return np.add(matriz1, matriz2)
+    else:
+        return "Las matrices no tienen las mismas dimensiones para sumarlas."
+
+def resta_matrices(matriz1, matriz2):
+    if matriz1.shape == matriz2.shape:
+        return np.subtract(matriz1, matriz2)
+    else:
+        return "Las matrices no tienen las mismas dimensiones para restarlas."
+
+def multiplicacion_matrices(matriz1, matriz2):
+    if matriz1.shape[1] == matriz2.shape[0]:
+        return np.dot(matriz1, matriz2)
+    else:
+        return "El número de columnas de la primera matriz debe ser igual al número de filas de la segunda."
+
+def transponer_matriz(matriz):
+    return np.transpose(matriz)
+
+def determinante_matriz(matriz):
+    if matriz.shape[0] == matriz.shape[1]:
+        return np.linalg.det(matriz)
+    else:
+        return "El determinante solo se puede calcular para matrices cuadradas."
+
+def mostrar_menu():
+    print("\nSeleccione una operación:")
+    print("1. Sumar matrices")
+    print("2. Restar matrices")
+    print("3. Multiplicar matrices")
+    print("4. Transponer una matriz")
+    print("5. Calcular el determinante de una matriz")
+    print("0. Salir")
+
+def main():
+    while True:
+        mostrar_menu()
+        opcion = input("Ingresa tu opción: ")
+
+        if opcion == "0":
+            print("Saliendo del programa")
+            break
+
+        elif opcion in ["1", "2", "3"]:
+            filas1 = int(input("Ingresa el número de filas de la primera matriz: "))
+            columnas1 = int(input("Ingresa el número de columnas de la primera matriz: "))
+            matriz1 = ingresar_matriz(filas1, columnas1)
+
+            filas2 = int(input("Ingresa el número de filas de la segunda matriz: "))
+            columnas2 = int(input("Ingresa el número de columnas de la segunda matriz: "))
+            matriz2 = ingresar_matriz(filas2, columnas2)
+
+            if opcion == "1":
+                resultado = suma_matrices(matriz1, matriz2)
+                if isinstance(resultado, str):
+                    print(resultado)
+                else:
+                    imprimir_matriz(resultado)
+
+            elif opcion == "2":
+                resultado = resta_matrices(matriz1, matriz2)
+                if isinstance(resultado, str):
+                    print(resultado)
+                else:
+                    imprimir_matriz(resultado)
+
+            elif opcion == "3":
+                resultado = multiplicacion_matrices(matriz1, matriz2)
+                if isinstance(resultado, str):
+                    print(resultado)
+                else:
+                    imprimir_matriz(resultado)
+
+        elif opcion == "4":
+            filas = int(input("Ingresa el número de filas de la matriz a transponer: "))
+            columnas = int(input("Ingresa el número de columnas de la matriz a transponer: "))
+            matriz = ingresar_matriz(filas, columnas)
+            resultado = transponer_matriz(matriz)
+            imprimir_matriz(resultado)
+
+        elif opcion == "5":
+            filas = int(input("Ingresa el número de filas de la matriz (debe ser cuadrada): "))
+            columnas = int(input("Ingresa el número de columnas de la matriz (debe ser cuadrada): "))
+            if filas == columnas:
+                matriz = ingresar_matriz(filas, columnas)
+                resultado = determinante_matriz(matriz)
+                print(f"Determinante de la matriz: {resultado}")
+            else:
+                print("El determinante solo se puede calcular para matrices cuadradas.")
+
+        else:
+            print("Opción no válida. Intenta nuevamente.")
+
+if __name__ == "__main__":
+    main()
+
+
