@@ -1,0 +1,92 @@
+#Implementar una agenda de contactos
+
+class Agenda:
+    def __init__(self):
+        self.contactos = {}
+
+    def agregar_contacto(self, nombre, telefono, correo):
+        if nombre not in self.contactos:
+            self.contactos[nombre] = {'telefono': telefono, 'correo': correo}
+            print(f"Contacto {nombre} agregado exitosamente.")
+        else:
+            print(f"El contacto {nombre} ya existe.")
+
+    def mostrar_contactos(self):
+        if not self.contactos:
+            print("No hay contactos en la agenda.")
+        else:
+            print("\nLista de contactos:")
+            for nombre, datos in self.contactos.items():
+                print(f"{nombre}: Teléfono: {datos['telefono']}, Correo: {datos['correo']}")
+
+    def buscar_contacto(self, nombre):
+        if nombre in self.contactos:
+            print(f"\n{nombre}: Teléfono: {self.contactos[nombre]['telefono']}, Correo: {self.contactos[nombre]['correo']}")
+        else:
+            print(f"El contacto {nombre} no está en la agenda.")
+
+    def eliminar_contacto(self, nombre):
+        if nombre in self.contactos:
+            del self.contactos[nombre]
+            print(f"Contacto {nombre} eliminado exitosamente.")
+        else:
+            print(f"El contacto {nombre} no está en la agenda.")
+
+    def actualizar_contacto(self, nombre, nuevo_telefono=None, nuevo_correo=None):
+        if nombre in self.contactos:
+            if nuevo_telefono:
+                self.contactos[nombre]['telefono'] = nuevo_telefono
+            if nuevo_correo:
+                self.contactos[nombre]['correo'] = nuevo_correo
+            print(f"Contacto {nombre} actualizado exitosamente.")
+        else:
+            print(f"El contacto {nombre} no está en la agenda.")
+
+def mostrar_menu():
+    print("\nAgenda de Contactos")
+    print("1. Agregar contacto")
+    print("2. Mostrar contactos")
+    print("3. Buscar contacto")
+    print("4. Eliminar contacto")
+    print("5. Actualizar contacto")
+    print("0. Salir")
+
+def main():
+    agenda = Agenda()
+
+    while True:
+        mostrar_menu()
+        opcion = input("Elige una opción: ")
+
+        if opcion == "1":
+            nombre = input("Ingresa el nombre del contacto: ")
+            telefono = input("Ingresa el teléfono: ")
+            correo = input("Ingresa el correo: ")
+            agenda.agregar_contacto(nombre, telefono, correo)
+
+        elif opcion == "2":
+            agenda.mostrar_contactos()
+
+        elif opcion == "3":
+            nombre = input("Ingresa el nombre del contacto a buscar: ")
+            agenda.buscar_contacto(nombre)
+
+        elif opcion == "4":
+            nombre = input("Ingresa el nombre del contacto a eliminar: ")
+            agenda.eliminar_contacto(nombre)
+
+        elif opcion == "5":
+            nombre = input("Ingresa el nombre del contacto a actualizar: ")
+            telefono = input("Ingresa el nuevo teléfono (o deja vacío para no cambiarlo): ")
+            correo = input("Ingresa el nuevo correo (o deja vacío para no cambiarlo): ")
+            agenda.actualizar_contacto(nombre, telefono if telefono else None, correo if correo else None)
+
+        elif opcion == "0":
+            print("Saliendo del programa")
+            break
+
+        else:
+            print("Opción no válida. Intenta nuevamente.")
+
+if __name__ == "__main__":
+    main()

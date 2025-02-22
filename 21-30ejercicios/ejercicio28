@@ -1,0 +1,59 @@
+#Simular una cuenta bancaria con depositos y retiros
+
+class CuentaBancaria:
+    def __init__(self, titular, saldo_inicial=0):
+        self.titular = titular
+        self.saldo = saldo_inicial
+
+    def depositar(self, cantidad):
+        if cantidad > 0:
+            self.saldo += cantidad
+            print(f"Has depositado {cantidad}. Nuevo saldo: {self.saldo}")
+        else:
+            print("La cantidad a depositar debe ser mayor que 0.")
+
+    def retirar(self, cantidad):
+        if cantidad > 0:
+            if cantidad <= self.saldo:
+                self.saldo -= cantidad
+                print(f"Has retirado {cantidad}. Nuevo saldo: {self.saldo}")
+            else:
+                print("Fondos insuficientes.")
+        else:
+            print("La cantidad a retirar debe ser mayor que 0.")
+
+    def mostrar_saldo(self):
+        print(f"Saldo actual de {self.titular}: {self.saldo}")
+
+def mostrar_menu():
+    print("\nMenu de Cuenta Bancaria")
+    print("1. Ver saldo")
+    print("2. Depositar dinero")
+    print("3. Retirar dinero")
+    print("0. Salir")
+
+def main():
+    print("¡Bienvenido al sistema bancario!")
+    nombre = input("Ingresa tu nombre: ")
+    cuenta = CuentaBancaria(nombre)
+
+    while True:
+        mostrar_menu()
+        opcion = input("Elige una opción: ")
+
+        if opcion == "0":
+            print("¡Hasta luego!")
+            break
+        elif opcion == "1":
+            cuenta.mostrar_saldo()
+        elif opcion == "2":
+            cantidad = float(input("¿Cuánto deseas depositar? "))
+            cuenta.depositar(cantidad)
+        elif opcion == "3":
+            cantidad = float(input("¿Cuánto deseas retirar? "))
+            cuenta.retirar(cantidad)
+        else:
+            print("Opción no válida. Intenta nuevamente.")
+
+if __name__ == "__main__":
+    main()

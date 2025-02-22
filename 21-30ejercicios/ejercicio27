@@ -1,0 +1,105 @@
+#Crear un conversor de unidades
+
+def convertir_longitud(valor, unidad_origen, unidad_destino):
+    # Diccionario de conversiones de longitud (metros como base)
+    conversiones = {
+        'm': 1,        # metros
+        'km': 1000,    # kilómetros
+        'cm': 0.01,    # centímetros
+        'mm': 0.001,   # milímetros
+        'mi': 1609.34, # millas
+        'yd': 0.9144,  # yardas
+        'ft': 0.3048,  # pies
+        'in': 0.0254   # pulgadas
+    }
+
+    if unidad_origen not in conversiones or unidad_destino not in conversiones:
+        return "Unidad no válida."
+    
+    # Convertir el valor a metros
+    valor_en_metros = valor * conversiones[unidad_origen]
+    
+    # Convertir de metros a la unidad destino
+    valor_convertido = valor_en_metros / conversiones[unidad_destino]
+    
+    return valor_convertido
+
+def convertir_temperatura(valor, unidad_origen, unidad_destino):
+    if unidad_origen == "C" and unidad_destino == "F":
+        return (valor * 9/5) + 32
+    elif unidad_origen == "C" and unidad_destino == "K":
+        return valor + 273.15
+    elif unidad_origen == "F" and unidad_destino == "C":
+        return (valor - 32) * 5/9
+    elif unidad_origen == "F" and unidad_destino == "K":
+        return (valor - 32) * 5/9 + 273.15
+    elif unidad_origen == "K" and unidad_destino == "C":
+        return valor - 273.15
+    elif unidad_origen == "K" and unidad_destino == "F":
+        return (valor - 273.15) * 9/5 + 32
+    else:
+        return "Unidades no válidas."
+
+def convertir_peso(valor, unidad_origen, unidad_destino):
+    # Diccionario de conversiones de peso (kilogramos como base)
+    conversiones = {
+        'kg': 1,      # kilogramos
+        'g': 0.001,   # gramos
+        'mg': 0.000001, # miligramos
+        'lb': 0.453592, # libras
+        'oz': 0.0283495 # onzas
+    }
+
+    if unidad_origen not in conversiones or unidad_destino not in conversiones:
+        return "Unidad no válida."
+    
+    # Convertir el valor a kilogramos
+    valor_en_kg = valor * conversiones[unidad_origen]
+    
+    # Convertir de kilogramos a la unidad destino
+    valor_convertido = valor_en_kg / conversiones[unidad_destino]
+    
+    return valor_convertido
+
+def mostrar_menu():
+    print("\nConversor de Unidades")
+    print("1. Longitud")
+    print("2. Temperatura")
+    print("3. Peso")
+    print("0. Salir")
+
+def main():
+    while True:
+        mostrar_menu()
+        opcion = input("Elige una opción: ")
+
+        if opcion == "0":
+            print("Saliendo del programa")
+            break
+        
+        elif opcion == "1":
+            valor = float(input("Ingresa el valor a convertir: "))
+            unidad_origen = input("Ingresa la unidad de origen (m, km, cm, mm, mi, yd, ft, in): ").lower()
+            unidad_destino = input("Ingresa la unidad de destino (m, km, cm, mm, mi, yd, ft, in): ").lower()
+            resultado = convertir_longitud(valor, unidad_origen, unidad_destino)
+            print(f"{valor} {unidad_origen} es igual a {resultado} {unidad_destino}.")
+        
+        elif opcion == "2":
+            valor = float(input("Ingresa el valor a convertir: "))
+            unidad_origen = input("Ingresa la unidad de origen (C, F, K): ").upper()
+            unidad_destino = input("Ingresa la unidad de destino (C, F, K): ").upper()
+            resultado = convertir_temperatura(valor, unidad_origen, unidad_destino)
+            print(f"{valor} {unidad_origen} es igual a {resultado} {unidad_destino}.")
+        
+        elif opcion == "3":
+            valor = float(input("Ingresa el valor a convertir: "))
+            unidad_origen = input("Ingresa la unidad de origen (kg, g, mg, lb, oz): ").lower()
+            unidad_destino = input("Ingresa la unidad de destino (kg, g, mg, lb, oz): ").lower()
+            resultado = convertir_peso(valor, unidad_origen, unidad_destino)
+            print(f"{valor} {unidad_origen} es igual a {resultado} {unidad_destino}.")
+        
+        else:
+            print("Opción no válida. Intenta nuevamente.")
+
+if __name__ == "__main__":
+    main()

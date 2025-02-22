@@ -1,0 +1,50 @@
+#Generar y analizar datos estadisticos
+
+import random
+import statistics
+
+# Función para generar datos aleatorios
+def generar_datos(n, rango_inferior, rango_superior):
+    return [random.randint(rango_inferior, rango_superior) for _ in range(n)]
+
+# Función para analizar los datos
+def analizar_datos(datos):
+    # Cálculos estadísticos
+    media = statistics.mean(datos)
+    mediana = statistics.median(datos)
+    try:
+        moda = statistics.mode(datos)
+    except statistics.StatisticsError:
+        moda = "No hay una moda única"  # En caso de que haya múltiples modas
+    desviacion_estandar = statistics.stdev(datos)
+    varianza = statistics.variance(datos)
+    percentil_25 = statistics.quantiles(datos, n=4)[0]
+    percentil_50 = statistics.quantiles(datos, n=4)[1]  # Este es el valor de la mediana
+    percentil_75 = statistics.quantiles(datos, n=4)[2]
+
+    # Mostrar los resultados
+    print("\nAnálisis estadístico:")
+    print(f"Media: {media}")
+    print(f"Mediana: {mediana}")
+    print(f"Moda: {moda}")
+    print(f"Desviación Estándar: {desviacion_estandar}")
+    print(f"Varianza: {varianza}")
+    print(f"Percentil 25: {percentil_25}")
+    print(f"Percentil 50 (Mediana): {percentil_50}")
+    print(f"Percentil 75: {percentil_75}")
+
+def main():
+    print("Generador y Analizador de Datos Estadísticos")
+    n = int(input("¿Cuántos datos deseas generar? "))
+    rango_inferior = int(input("Ingresa el valor mínimo del rango: "))
+    rango_superior = int(input("Ingresa el valor máximo del rango: "))
+
+    # Generar datos aleatorios
+    datos = generar_datos(n, rango_inferior, rango_superior)
+    print(f"\nDatos generados: {datos}")
+    
+    # Analizar los datos generados
+    analizar_datos(datos)
+
+if __name__ == "__main__":
+    main()

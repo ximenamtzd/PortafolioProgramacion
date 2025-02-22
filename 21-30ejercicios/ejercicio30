@@ -1,0 +1,67 @@
+#Implementar funciones recursivas
+
+# Función recursiva para calcular el factorial de un número
+def factorial(n):
+    if n == 0 or n == 1:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+# Función recursiva para calcular la serie de Fibonacci
+def fibonacci(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n - 1) + fibonacci(n - 2)
+
+# Función recursiva para calcular la potencia de un número
+def potencia(base, exponente):
+    if exponente == 0:
+        return 1
+    else:
+        return base * potencia(base, exponente - 1)
+
+# Función recursiva para encontrar el máximo común divisor (MCD) de dos números
+def mcd(a, b):
+    if b == 0:
+        return a
+    else:
+        return mcd(b, a % b)
+
+# Función recursiva para imprimir una lista en orden inverso
+def imprimir_inverso(lista):
+    if len(lista) == 0:
+        return
+    else:
+        # Imprime el primer elemento de la lista y luego llama recursivamente con el resto
+        print(lista[-1])
+        imprimir_inverso(lista[:-1])
+
+def main():
+    # Ejemplo 1: Factorial de un número
+    numero = int(input("Ingresa un número para calcular su factorial: "))
+    print(f"El factorial de {numero} es {factorial(numero)}\n")
+
+    # Ejemplo 2: Serie de Fibonacci
+    n = int(input("Ingresa un número para obtener el n-ésimo término de la serie de Fibonacci: "))
+    print(f"El {n}-ésimo término de la serie de Fibonacci es {fibonacci(n)}\n")
+
+    # Ejemplo 3: Potencia
+    base = float(input("Ingresa la base: "))
+    exponente = int(input("Ingresa el exponente: "))
+    print(f"{base} elevado a la potencia de {exponente} es {potencia(base, exponente)}\n")
+
+    # Ejemplo 4: Máximo común divisor (MCD)
+    a = int(input("Ingresa el primer número para calcular el MCD: "))
+    b = int(input("Ingresa el segundo número para calcular el MCD: "))
+    print(f"El MCD de {a} y {b} es {mcd(a, b)}\n")
+
+    # Ejemplo 5: Imprimir lista en orden inverso
+    lista = [int(x) for x in input("Ingresa una lista de números separados por espacios: ").split()]
+    print("Los elementos de la lista en orden inverso son:")
+    imprimir_inverso(lista)
+
+if __name__ == "__main__":
+    main()
