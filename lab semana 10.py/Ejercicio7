@@ -1,0 +1,63 @@
+#Ordenamiento y busqueda
+
+
+import random
+
+# Función para una lista de números aleatorios
+def generar_lista(tamaño, rango):
+    return [random.randint(1, rango) for _ in range(tamaño)]
+
+# Función de Quicksort
+def quicksort(lista):
+    if len(lista) <= 1:
+        return lista
+    pivot = lista[len(lista) // 2]  # Elegir el pivote
+    izquierda = [x for x in lista if x < pivot]
+    medio = [x for x in lista if x == pivot]
+    derecha = [x for x in lista if x > pivot]
+    return quicksort(izquierda) + medio + quicksort(derecha)
+
+# Función de Búsqueda Binaria
+def busqueda_binaria(lista, objetivo):
+    bajo = 0
+    alto = len(lista) - 1
+    while bajo <= alto:
+        mid = (bajo + alto) // 2
+        if lista[mid] == objetivo:
+            return mid  # Encontrado, devuelve el índice
+        elif lista[mid] < objetivo:
+            bajo = mid + 1
+        else:
+            alto = mid - 1
+    return -1  # No encontrado
+
+# Función principal
+def main():
+    # Generar lista de números aleatorios
+    tamaño = int(input("Ingrese el tamaño de la lista: "))
+    rango = int(input("Ingrese el valor máximo para los números aleatorios: "))
+    lista = generar_lista(tamaño, rango)
+
+    # Mostrar lista original
+    print("\nLista original:")
+    print(lista)
+
+    # Ordenar lista usando QuickSort
+    lista_ordenada = quicksort(lista)
+
+    # Mostrar lista ordenada
+    print("\nLista ordenada:")
+    print(lista_ordenada)
+
+    # Buscar un número en la lista ordenada
+    numero_buscar = int(input("\nIngrese el número que desea buscar: "))
+    resultado = busqueda_binaria(lista_ordenada, numero_buscar)
+
+    # Mostrar el resultado de la búsqueda
+    if resultado != -1:
+        print(f"El número {numero_buscar} se encuentra en el índice {resultado} de la lista ordenada.")
+    else:
+        print(f"El número {numero_buscar} no se encuentra en la lista.")
+
+if __name__ == "__main__":
+    main()

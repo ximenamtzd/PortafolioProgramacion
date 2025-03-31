@@ -1,0 +1,22 @@
+#problema2
+def ubicadorDeVocales(cadena):
+    # Diccionario para almacenar las posiciones de cada vocal
+    ubicaciones = {'a': [], 'e': [], 'i': [], 'o': [], 'u': []}
+    
+    # Recorremos la cadena y guardamos las posiciones donde aparecen las vocales
+    for indice, char in enumerate(cadena.lower()):  # Convertimos a minúsculas para que no se distinga entre mayúsculas y minúsculas
+        if char in ubicaciones:
+            ubicaciones[char].append(indice)
+    
+    # Devolvemos el diccionario con las posiciones de cada vocal
+    return ubicaciones
+
+# Ejecución interactiva
+cadena1 = input("Introduce la primera cadena (por ejemplo, 'murcielago'): ")
+print(ubicadorDeVocales(cadena1))
+
+cadena2 = input("Introduce la segunda cadena (por ejemplo, 'eucalipto'): ")
+print(ubicadorDeVocales(cadena2))
+
+cadena3 = input("Introduce la tercera cadena (por ejemplo, 'Albericoque'): ")
+print(ubicadorDeVocales(cadena3))

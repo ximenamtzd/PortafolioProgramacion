@@ -1,0 +1,24 @@
+#Problema1
+def contadorDeVocales(cadena):
+    # Diccionario para almacenar la cantidad de veces que aparece cada vocal
+    contador = {'a': 0, 'e': 0, 'i': 0, 'o': 0, 'u': 0}
+    
+    # Recorremos la cadena y contamos las vocales
+    for char in cadena.lower():  # Convertimos la cadena a minúsculas para no diferenciar entre mayúsculas y minúsculas
+        if char in contador:
+            contador[char] += 1
+    
+    # Devolvemos el diccionario con los conteos
+    return contador
+
+# Pruebas interactivas
+cadena1 = input("Introduce la primera cadena (por ejemplo, 'murcielago'): ")
+print(contadorDeVocales(cadena1))
+
+cadena2 = input("Introduce la segunda cadena (por ejemplo, 'eucalipto'): ")
+print(contadorDeVocales(cadena2))
+
+cadena3 = input("Introduce la tercera cadena (por ejemplo, 'Albericoque'): ")
+print(contadorDeVocales(cadena3))
+
+

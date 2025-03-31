@@ -1,0 +1,81 @@
+#Sistema de gestion de vahiculos
+
+# Clase base Vehiculo
+class Vehiculo:
+    def __init__(self, marca, modelo, año, precio):
+        self.marca = marca
+        self.modelo = modelo
+        self.año = año
+        self.precio = precio
+
+    def mostrar_informacion(self):
+        print(f"Marca: {self.marca}")
+        print(f"Modelo: {self.modelo}")
+        print(f"Año: {self.año}")
+        print(f"Precio: ${self.precio:.2f}")
+
+# Subclase Automovil
+class Automovil(Vehiculo):
+    def __init__(self, marca, modelo, año, precio, numero_puertas):
+        super().__init__(marca, modelo, año, precio)  # Llamamos al constructor de la clase base
+        self.numero_puertas = numero_puertas
+
+    def mostrar_informacion(self):
+        super().mostrar_informacion()  # Llamamos al método de la clase base para mostrar la información común
+        print(f"Número de puertas: {self.numero_puertas}")
+
+# Subclase Motocicleta
+class Motocicleta(Vehiculo):
+    def __init__(self, marca, modelo, año, precio, cilindrada):
+        super().__init__(marca, modelo, año, precio)  # Llamamos al constructor de la clase base
+        self.cilindrada = cilindrada
+
+    def mostrar_informacion(self):
+        super().mostrar_informacion()  # Llamamos al método de la clase base para mostrar la información común
+        print(f"Cilindrada: {self.cilindrada} cc")
+
+# Función para crear un Automovil
+def crear_automovil():
+    marca = input("Ingresa la marca del automóvil: ")
+    modelo = input("Ingresa el modelo del automóvil: ")
+    año = int(input("Ingresa el año del automóvil: "))
+    precio = float(input("Ingresa el precio del automóvil: "))
+    numero_puertas = int(input("Ingresa el número de puertas del automóvil: "))
+    return Automovil(marca, modelo, año, precio, numero_puertas)
+
+# Función para crear una Motocicleta
+def crear_motocicleta():
+    marca = input("Ingresa la marca de la motocicleta: ")
+    modelo = input("Ingresa el modelo de la motocicleta: ")
+    año = int(input("Ingresa el año de la motocicleta: "))
+    precio = float(input("Ingresa el precio de la motocicleta: "))
+    cilindrada = int(input("Ingresa la cilindrada de la motocicleta (en cc): "))
+    return Motocicleta(marca, modelo, año, precio, cilindrada)
+
+# Función para interactuar con el usuario
+def main():
+    while True:
+        print("\nSeleccione el tipo de vehículo que desea agregar:")
+        print("1. Automóvil")
+        print("2. Motocicleta")
+        print("3. Salir")
+        opcion = input("Elija una opción (1-3): ")
+
+        if opcion == '1':
+            # Crear un Automóvil
+            auto = crear_automovil()
+            print("\nInformación del Automóvil:")
+            auto.mostrar_informacion()
+        elif opcion == '2':
+            # Crear una Motocicleta
+            moto = crear_motocicleta()
+            print("\nInformación de la Motocicleta:")
+            moto.mostrar_informacion()
+        elif opcion == '3':
+            print("Gracias por usar el programa.")
+            break
+        else:
+            print("Opción no válida. Por favor, elija una opción correcta.")
+
+if __name__ == "__main__":
+    main()

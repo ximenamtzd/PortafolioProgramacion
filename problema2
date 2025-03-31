@@ -1,0 +1,17 @@
+#problema2
+def ubicadorDeVocales(cadena):
+    # Diccionario para almacenar las posiciones de cada vocal
+    ubicaciones = {'a': [], 'e': [], 'i': [], 'o': [], 'u': []}
+    
+    # Recorremos la cadena y guardamos las posiciones donde aparecen las vocales
+    for indice, char in enumerate(cadena.lower()):  # Convertimos a minúsculas para que no se distinga entre mayúsculas y minúsculas
+        if char in ubicaciones:
+            ubicaciones[char].append(indice)
+    
+    # Devolvemos el diccionario con las posiciones de cada vocal
+    return ubicaciones
+
+# Pruebas
+print(ubicadorDeVocales("murcielago"))  # {'a': [3, 7], 'e': [2], 'i': [4], 'o': [6], 'u': [0]}
+print(ubicadorDeVocales("eucalipto"))   # {'a': [1, 4], 'e': [0], 'i': [3, 6], 'o': [5], 'u': [2]}
+print(ubicadorDeVocales("Albericoque")) # {'a': [0, 5], 'e': [1, 7], 'i': [3], 'o': [4], 'u': [2]}

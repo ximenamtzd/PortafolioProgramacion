@@ -1,0 +1,30 @@
+#Calculadora de estadisticas
+
+import statistics
+
+def calcular_estadisticas(*args):
+    # Calcular promedio usando lambda
+    promedio = lambda x: sum(x) / len(x) if x else 0
+    media = promedio(args)
+
+    # Calculo de mediana
+    mediana = statistics.median(args)
+
+    # Calculo de desviación estándar
+    desviacion_estandar = statistics.stdev(args) if len(args) > 1 else 0.0
+
+    # Resultados
+    print(f"Promedio: {media}")
+    print(f"Mediana: {mediana}")
+    print(f"Desviación estándar: {desviacion_estandar}")
+
+def main():
+    # Solicitar al usuario lista de números
+    entrada = input("Por favor ingresa una lista de números separados por espacio: ")
+    numeros = list(map(float, entrada.split()))
+
+    # Llamar a la función para calcular las estadísticas
+    calcular_estadisticas(*numeros)
+
+if __name__ == "__main__":
+    main()

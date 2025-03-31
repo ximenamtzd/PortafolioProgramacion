@@ -1,0 +1,59 @@
+#Implementacion de mergesort
+
+# Función de MergeSort
+def mergesort(lista):
+    if len(lista) > 1:
+        # Encontramos el punto medio de la lista
+        medio = len(lista) // 2
+        # Dividimos la lista en dos mitades
+        izquierda = lista[:medio]
+        derecha = lista[medio:]
+
+        # Recursivamente ordenamos ambas mitades
+        mergesort(izquierda)
+        mergesort(derecha)
+
+        # Inicializamos los índices para la fusión
+        i = j = k = 0
+
+        # Fusión de las dos mitades en la lista original
+        while i < len(izquierda) and j < len(derecha):
+            if izquierda[i] < derecha[j]:
+                lista[k] = izquierda[i]
+                i += 1
+            else:
+                lista[k] = derecha[j]
+                j += 1
+            k += 1
+
+        # Si quedan elementos en la mitad izquierda
+        while i < len(izquierda):
+            lista[k] = izquierda[i]
+            i += 1
+            k += 1
+
+        # Si quedan elementos en la mitad derecha
+        while j < len(derecha):
+            lista[k] = derecha[j]
+            j += 1
+            k += 1
+
+# Función principal
+def main():
+    # Ingresar lista de números
+    numeros = input("Ingrese una lista de números separados por espacios: ")
+    lista = [int(num) for num in numeros.split()]
+
+    # Mostrar la lista antes del ordenamiento
+    print("\nLista antes del ordenamiento:")
+    print(lista)
+
+    # Ordenar la lista usando MergeSort
+    mergesort(lista)
+
+    # Mostrar la lista después del ordenamiento
+    print("\nLista después del ordenamiento:")
+    print(lista)
+
+if __name__ == "__main__":
+    main()
