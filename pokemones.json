@@ -1,0 +1,23 @@
+[
+    {
+        "nombre": "bulbasaur",
+        "tipos": [
+            "grass",
+            "poison"
+        ],
+        "habilidades": [
+            "overgrow",
+            "chlorophyll"
+        ]
+    },
+    {
+        "nombre": "pikachu",
+        "tipos": [
+            "electric"
+        ],
+        "habilidades": [
+            "static",
+            "lightning-rod"
+        ]
+    }
+]
