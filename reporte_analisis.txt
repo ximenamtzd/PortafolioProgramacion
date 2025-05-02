@@ -1,0 +1,29 @@
+=== Reporte de Análisis de Pokémon ===
+
+Total de Pokémon analizados: 1
+
+=== Estadísticas de Tipos por Pokémon ===
+Media: 1.00
+Mediana: 1
+Moda: 1
+Desviación estándar: 0.00
+Mínimo: 1
+Máximo: 1
+
+=== Estadísticas de Habilidades por Pokémon ===
+Media: 2.00
+Mediana: 2
+Moda: 2
+Desviación estándar: 0.00
+Mínimo: 2
+Máximo: 2
+
+=== Distribución de Tipos ===
+Tipos únicos encontrados: 1
+Tipo más común: electric (aparece 1 veces)
+Tipo menos común: electric (aparece 1 veces)
+
+=== Distribución de Habilidades ===
+Habilidades únicas encontradas: 2
+Habilidad más común: lightning-rod (aparece 1 veces)
+Habilidad menos común: lightning-rod (aparece 1 veces)
