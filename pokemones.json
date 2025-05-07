@@ -1,33 +1,13 @@
 [
     {
-        "nombre": "pikachu",
+        "nombre": "venusaur",
         "tipos": [
-            "electric"
+            "grass",
+            "poison"
         ],
         "habilidades": [
-            "static",
-            "lightning-rod"
-        ]
-    },
-    {
-        "nombre": "charizard",
-        "tipos": [
-            "fire",
-            "flying"
-        ],
-        "habilidades": [
-            "blaze",
-            "solar-power"
-        ]
-    },
-    {
-        "nombre": "charmander",
-        "tipos": [
-            "fire"
-        ],
-        "habilidades": [
-            "blaze",
-            "solar-power"
+            "overgrow",
+            "chlorophyll"
         ]
     }
 ]
