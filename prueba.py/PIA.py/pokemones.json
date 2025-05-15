@@ -1,23 +1,13 @@
 [
     {
-        "nombre": "bulbasaur",
+        "nombre": "weedle",
         "tipos": [
-            "grass",
+            "bug",
             "poison"
         ],
         "habilidades": [
-            "overgrow",
-            "chlorophyll"
-        ]
-    },
-    {
-        "nombre": "pikachu",
-        "tipos": [
-            "electric"
-        ],
-        "habilidades": [
-            "static",
-            "lightning-rod"
+            "shield-dust",
+            "run-away"
         ]
     }
 ]
