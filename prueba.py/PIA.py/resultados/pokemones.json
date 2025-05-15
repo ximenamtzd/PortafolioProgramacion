@@ -1,0 +1,42 @@
+[
+    {
+        "nombre": "pikachu",
+        "tipos": [
+            "electric"
+        ],
+        "habilidades": [
+            "static",
+            "lightning-rod"
+        ],
+        "altura": 4,
+        "peso": 60,
+        "experiencia_base": 112
+    },
+    {
+        "nombre": "charizard",
+        "tipos": [
+            "fire",
+            "flying"
+        ],
+        "habilidades": [
+            "blaze",
+            "solar-power"
+        ],
+        "altura": 17,
+        "peso": 905,
+        "experiencia_base": 267
+    },
+    {
+        "nombre": "kakuna",
+        "tipos": [
+            "bug",
+            "poison"
+        ],
+        "habilidades": [
+            "shed-skin"
+        ],
+        "altura": 6,
+        "peso": 100,
+        "experiencia_base": 72
+    }
+]

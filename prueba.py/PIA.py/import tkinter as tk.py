@@ -43,47 +43,32 @@ def validar_nombre(nombre):
 # Obtener información desde la API
 def obtener_datos_pokemon(nombre_pokemon):
     url = f"https://pokeapi.co/api/v2/pokemon/{nombre_pokemon.lower()}"
-    try:
-        respuesta = requests.get(url, timeout=10)
-        if respuesta.status_code == 200:
-            datos = respuesta.json()
-            return {
-                "nombre": datos["name"],
-                "tipos": [t["type"]["name"] for t in datos["types"]],
-                "habilidades": [h["ability"]["name"] for h in datos["abilities"]],
-                "altura": datos.get("height", 0),
-                "peso": datos.get("weight", 0),
-                "experiencia_base": datos.get("base_experience", 0)
-            }
-        elif respuesta.status_code == 404:
-            return None
-        else:
-            raise requests.RequestException("Respuesta inesperada del servidor")
-    except requests.exceptions.RequestException as e:
-        raise
+    respuesta = requests.get(url)
+    if respuesta.status_code == 200:
+        datos = respuesta.json()
+        return {
+            "nombre": datos["name"],
+            "tipos": [t["type"]["name"] for t in datos["types"]],
+            "habilidades": [h["ability"]["name"] for h in datos["abilities"]],
+            "altura": datos.get("height", 0),
+            "peso": datos.get("weight", 0),
+            "experiencia_base": datos.get("base_experience", 0)
+        }
+    else:
+        return None
 
 # Mostrar en pantalla
 def mostrar_info():
     nombre = entrada.get().strip().lower()
-
-    if not nombre:
-        messagebox.showerror("Campo vacío", "Por favor, escribe el nombre de un Pokémon.")
-        return
-
     if not validar_nombre(nombre):
-        messagebox.showerror("Nombre inválido", "El nombre solo puede contener letras (sin espacios, números ni símbolos).")
+        messagebox.showerror("Error", "Nombre inválido. Usa solo letras sin espacios.")
         return
 
     if any(p["nombre"] == nombre for p in datos_pokemones):
-        messagebox.showinfo("Repetido", f"{nombre.capitalize()} ya está registrado en la base de datos.")
+        messagebox.showinfo("Repetido", f"{nombre.capitalize()} ya está en la base de datos.")
         return
 
-    try:
-        datos = obtener_datos_pokemon(nombre)
-    except requests.exceptions.RequestException:
-        messagebox.showerror("Error de conexión", "No se pudo conectar a la API de Pokémon. Verifica tu conexión a internet.")
-        return
-
+    datos = obtener_datos_pokemon(nombre)
     if datos:
         datos_pokemones.append(datos)
         texto = (
@@ -97,8 +82,7 @@ def mostrar_info():
         resultado.config(text=texto)
         entrada.delete(0, tk.END)
     else:
-        messagebox.showwarning("No encontrado", f"No se encontró información del Pokémon '{nombre}'. Verifica que esté bien escrito.")
-        resultado.config(text="")
+        resultado.config(text=f"No se encontró información para: {nombre}")
 
 # Guardar en JSON, CSV y Excel (evitando duplicados)
 def guardar_archivos():
@@ -160,24 +144,15 @@ def abrir_carpeta():
     try:
         os.startfile(CARPETA_RESULTADOS)
     except Exception as e:
-        messagebox.showerror("Error", f"No se pudo abrir la carpeta de resultados. Intenta hacerlo manualmente.\n\n{e}")
+        messagebox.showerror("Error", f"No se pudo abrir la carpeta: {e}")
 
 # Eliminar todo lo guardado
 def eliminar_datos():
-    errores = []
     for archivo in [ARCHIVO_EXCEL, ARCHIVO_JSON, ARCHIVO_CSV]:
-        try:
-            if os.path.exists(archivo):
-                os.remove(archivo)
-        except Exception as e:
-            errores.append(str(e))
-
+        if os.path.exists(archivo):
+            os.remove(archivo)
     datos_pokemones.clear()
-
-    if errores:
-        messagebox.showwarning("Parcialmente eliminado", f"Algunos archivos no pudieron eliminarse:\n\n{chr(10).join(errores)}")
-    else:
-        messagebox.showinfo("Eliminado", "Todos los datos guardados han sido eliminados exitosamente.")
+    messagebox.showinfo("Eliminado", "Todos los datos guardados han sido eliminados.")
 
 # Leer datos desde Excel para graficar
 def leer_datos_para_graficas():
