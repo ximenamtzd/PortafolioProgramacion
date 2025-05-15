@@ -7,6 +7,7 @@ import re
 from tkinter import messagebox
 from openpyxl import Workbook, load_workbook
 import matplotlib.pyplot as plt
+from collections import Counter
 
 # Carpeta donde se guardan los resultados
 CARPETA_RESULTADOS = os.path.join(os.getcwd(), "resultados")
@@ -14,14 +15,11 @@ ARCHIVO_EXCEL = os.path.join(CARPETA_RESULTADOS, "pokemones.xlsx")
 ARCHIVO_JSON = os.path.join(CARPETA_RESULTADOS, "pokemones.json")
 ARCHIVO_CSV = os.path.join(CARPETA_RESULTADOS, "pokemones.csv")
 
-# Asegurar existencia de la carpeta
 if not os.path.exists(CARPETA_RESULTADOS):
     os.makedirs(CARPETA_RESULTADOS)
 
-# Lista en memoria
 datos_pokemones = []
 
-# Cargar datos desde Excel si existe
 def cargar_excel():
     if os.path.exists(ARCHIVO_EXCEL):
         wb = load_workbook(ARCHIVO_EXCEL)
@@ -36,15 +34,13 @@ def cargar_excel():
                 "experiencia_base": row[5]
             })
 
-# Validar nombres sin caracteres raros
 def validar_nombre(nombre):
     return bool(re.fullmatch(r"[a-zA-Z\-]+", nombre))
 
-# Obtener información desde la API
 def obtener_datos_pokemon(nombre_pokemon):
     url = f"https://pokeapi.co/api/v2/pokemon/{nombre_pokemon.lower()}"
     try:
-        respuesta = requests.get(url, timeout=10)
+        respuesta = requests.get(url)
         if respuesta.status_code == 200:
             datos = respuesta.json()
             return {
@@ -55,35 +51,23 @@ def obtener_datos_pokemon(nombre_pokemon):
                 "peso": datos.get("weight", 0),
                 "experiencia_base": datos.get("base_experience", 0)
             }
-        elif respuesta.status_code == 404:
-            return None
         else:
-            raise requests.RequestException("Respuesta inesperada del servidor")
+            return None
     except requests.exceptions.RequestException as e:
-        raise
+        messagebox.showerror("Error", f"No se pudo conectar con la API:\n{e}")
+        return None
 
-# Mostrar en pantalla
 def mostrar_info():
     nombre = entrada.get().strip().lower()
-
-    if not nombre:
-        messagebox.showerror("Campo vacío", "Por favor, escribe el nombre de un Pokémon.")
-        return
-
     if not validar_nombre(nombre):
-        messagebox.showerror("Nombre inválido", "El nombre solo puede contener letras (sin espacios, números ni símbolos).")
+        messagebox.showerror("Error", "Nombre inválido. Usa solo letras sin espacios.")
         return
 
     if any(p["nombre"] == nombre for p in datos_pokemones):
-        messagebox.showinfo("Repetido", f"{nombre.capitalize()} ya está registrado en la base de datos.")
+        messagebox.showinfo("Repetido", f"{nombre.capitalize()} ya está en la base de datos.")
         return
 
-    try:
-        datos = obtener_datos_pokemon(nombre)
-    except requests.exceptions.RequestException:
-        messagebox.showerror("Error de conexión", "No se pudo conectar a la API de Pokémon. Verifica tu conexión a internet.")
-        return
-
+    datos = obtener_datos_pokemon(nombre)
     if datos:
         datos_pokemones.append(datos)
         texto = (
@@ -97,10 +81,8 @@ def mostrar_info():
         resultado.config(text=texto)
         entrada.delete(0, tk.END)
     else:
-        messagebox.showwarning("No encontrado", f"No se encontró información del Pokémon '{nombre}'. Verifica que esté bien escrito.")
-        resultado.config(text="")
+        messagebox.showwarning("No encontrado", f"No se encontró información para: {nombre}")
 
-# Guardar en JSON, CSV y Excel (evitando duplicados)
 def guardar_archivos():
     if not datos_pokemones:
         messagebox.showwarning("Aviso", "No hay datos para guardar.")
@@ -135,11 +117,9 @@ def guardar_archivos():
 
     wb.save(ARCHIVO_EXCEL)
 
-    # JSON
     with open(ARCHIVO_JSON, "w") as f_json:
         json.dump(datos_pokemones, f_json, indent=4)
 
-    # CSV
     with open(ARCHIVO_CSV, "w", newline="") as f_csv:
         writer = csv.writer(f_csv)
         writer.writerow(["nombre", "tipos", "habilidades", "altura", "peso", "experiencia_base"])
@@ -155,31 +135,19 @@ def guardar_archivos():
 
     messagebox.showinfo("Guardado", f"Datos guardados. {nuevos} nuevos añadidos.")
 
-# Abrir la carpeta de resultados
 def abrir_carpeta():
     try:
         os.startfile(CARPETA_RESULTADOS)
     except Exception as e:
-        messagebox.showerror("Error", f"No se pudo abrir la carpeta de resultados. Intenta hacerlo manualmente.\n\n{e}")
+        messagebox.showerror("Error", f"No se pudo abrir la carpeta: {e}")
 
-# Eliminar todo lo guardado
 def eliminar_datos():
-    errores = []
     for archivo in [ARCHIVO_EXCEL, ARCHIVO_JSON, ARCHIVO_CSV]:
-        try:
-            if os.path.exists(archivo):
-                os.remove(archivo)
-        except Exception as e:
-            errores.append(str(e))
-
+        if os.path.exists(archivo):
+            os.remove(archivo)
     datos_pokemones.clear()
+    messagebox.showinfo("Eliminado", "Todos los datos guardados han sido eliminados.")
 
-    if errores:
-        messagebox.showwarning("Parcialmente eliminado", f"Algunos archivos no pudieron eliminarse:\n\n{chr(10).join(errores)}")
-    else:
-        messagebox.showinfo("Eliminado", "Todos los datos guardados han sido eliminados exitosamente.")
-
-# Leer datos desde Excel para graficar
 def leer_datos_para_graficas():
     if not os.path.exists(ARCHIVO_EXCEL):
         return []
@@ -190,13 +158,13 @@ def leer_datos_para_graficas():
     for row in ws.iter_rows(min_row=2, values_only=True):
         datos.append({
             "nombre": row[0].capitalize(),
+            "tipos": row[1].split(", "),
             "altura": row[3],
             "peso": row[4],
             "experiencia_base": row[5]
         })
     return datos
 
-# Mostrar gráficas desde Excel
 def mostrar_graficas():
     datos = leer_datos_para_graficas()
     if not datos:
@@ -208,6 +176,17 @@ def mostrar_graficas():
     pesos = [d["peso"] for d in datos]
     experiencia = [d["experiencia_base"] for d in datos]
 
+    # 1. Gráfico de líneas: Experiencia base
+    plt.figure(figsize=(10, 6))
+    plt.plot(nombres, experiencia, marker='o', linestyle='-', color='purple')
+    plt.title("Experiencia Base de los Pokémon")
+    plt.xlabel("Pokémon")
+    plt.ylabel("Experiencia Base")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
+    # 2. Gráfico de barras: Altura
     plt.figure(figsize=(10, 6))
     plt.bar(nombres, alturas, color='skyblue')
     plt.title("Altura de los Pokémon")
@@ -217,26 +196,25 @@ def mostrar_graficas():
     plt.tight_layout()
     plt.show()
 
-    plt.figure(figsize=(10, 6))
-    plt.bar(nombres, pesos, color='lightgreen')
-    plt.title("Peso de los Pokémon")
-    plt.xlabel("Pokémon")
+    # 3. Diagrama de dispersión: Peso vs Altura
+    plt.figure(figsize=(8, 6))
+    plt.scatter(alturas, pesos, color='orange')
+    plt.title("Relación entre Altura y Peso")
+    plt.xlabel("Altura")
     plt.ylabel("Peso")
-    plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
 
-    plt.figure(figsize=(10, 6))
-    plt.bar(nombres, experiencia, color='salmon')
-    plt.title("Experiencia base de los Pokémon")
-    plt.xlabel("Pokémon")
-    plt.ylabel("Experiencia Base")
-    plt.xticks(rotation=45)
+    # 4. Gráfico de pastel: Tipos
+    todos_los_tipos = [tipo for d in datos for tipo in d["tipos"]]
+    conteo_tipos = Counter(todos_los_tipos)
+    plt.figure(figsize=(8, 8))
+    plt.pie(conteo_tipos.values(), labels=conteo_tipos.keys(), autopct='%1.1f%%', startangle=90)
+    plt.title("Distribución de Tipos de Pokémon")
     plt.tight_layout()
     plt.show()
 
-# GUI 
-
+# Interfaz gráfica
 ventana = tk.Tk()
 ventana.title("Consulta Pokémon")
 
